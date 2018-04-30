@@ -1,0 +1,56 @@
+{% extends 'gis/base.html' %}
+
+{% block title %}
+    Map
+{% endblock %}
+
+{% block maphead %}
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.6/"></script>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/widgets/Home",
+            "esri/widgets/Locate",
+            "esri/widgets/BasemapToggle",
+            "dojo/domReady!"
+        ], function (Map, MapView, Home, Locate, BasemapToggle) {
+
+            var map = new Map({
+                basemap: "topo"
+            });
+
+            var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                zoom: 4,
+                center: [50.445836, 30.540364] // longitude, latitude
+            });
+
+            var homeBtn = new Home({
+                view: view
+            });
+
+            var locateBtn = new Locate({
+                view: view
+            });
+
+
+            var toggle = new BasemapToggle({
+                // 2 - Set properties
+                view: view, // view that provides access to the map's 'topo' basemap
+                nextBasemap: "hybrid" // allows for toggling to the 'hybrid' basemap
+            });
+
+            view.ui.add(homeBtn, "top-left");
+            view.ui.add(toggle, "top-right");
+            view.ui.add(locateBtn, "top-left");
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div id="viewDiv"></div>
+{% endblock %}
