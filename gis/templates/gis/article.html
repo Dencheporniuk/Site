@@ -6,7 +6,6 @@
 
 {% block content %}
         <h3 class = 'text_'>{{ article.title }}</h3>
-        <script type="text/html" async>
-           <p class = 'text_'> {{ article.text }}</p></script>
-        <p class = 'text_'> {{ article.text }}</p>
+        <p class = 'text_'> {{ article.text| safe }}</p>
+
 {% endblock %}
